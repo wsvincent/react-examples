@@ -11,7 +11,7 @@ function Comment({ author, message, likes }) {
       <div className='author'>{author}</div>
       <div className='message'>{message}</div>
       <div className='likes'>
-        {likes > 0 ? likes : 'No'} likes
+        {likes > 0 ? likes: 'No'} likes
       </div>
     </div>
   );
@@ -28,6 +28,9 @@ const Time = ({ time }) =>
     {moment(time).fromNow()}
   </span>
 
+Time.propTypes = {
+  time: PropTypes.string,
+}
 
 const ReplyButton = () => (
   <i className="fa fa-reply reply-button"/>
@@ -52,6 +55,10 @@ const RetweetButton = ({ count }) => (
   </span>
 );
 
+RetweetButton.propTypes = {
+  count: PropTypes.number
+};
+
 const LikeButton = ({ count }) => (
   <span className="like-button">
     <i className="fa fa-heart"/>
@@ -60,6 +67,10 @@ const LikeButton = ({ count }) => (
     </span>
   </span>
 );
+
+LikeButton.propTypes = {
+  count: PropTypes.number
+};
 
 const MoreOptionsButton = () => (
   <i className="fa fa-ellipsis-h more-options-button"/>
@@ -73,6 +84,10 @@ function Message({ text }) {
   );
 }
 
+Message.propTypes = {
+  text: PropTypes.string,
+};
+
 function NameWithHandle({ author }) {
   const { name, handle } = author;
   return (
@@ -83,6 +98,12 @@ function NameWithHandle({ author }) {
   );
 }
 
+NameWithHandle.propTypes = {
+  author: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    handle: PropTypes.string.isRequired
+  }).isRequired
+};
 
 function Avatar({ hash }) {
   let url = `https://www.gravatar.com/avatar/${hash}`;
@@ -93,6 +114,10 @@ function Avatar({ hash }) {
       alt="avatar" />
   );
 }
+
+Avatar.propTypes = {
+  hash: PropTypes.string
+};
 
 function Tweet({ tweet }) {
   return (
@@ -108,10 +133,24 @@ function Tweet({ tweet }) {
           <LikeButton count={tweet.likes}/>
           <MoreOptionsButton />
         </div>
-        <Comment author='mystery author' />
+        <Comment author='somebody' message='a likable message' likes={1}/>
       </div>
     </div>
   );
+}
+
+Tweet.propTypes = {
+  tweet: PropTypes.shape({
+    message: PropTypes.string,
+    gravatar: PropTypes.string,
+    author: PropTypes.shape({
+      handle: PropTypes.string,
+      name: PropTypes.string
+    }),
+    likes: PropTypes.number,
+    retweets: PropTypes.number,
+    timestamp: PropTypes.string,
+  })
 }
 
 const testTweet = {
