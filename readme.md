@@ -1,3 +1,1 @@
-# Readme
-
-A repository of React code from various sources.
+A repository of React code examples. Some from tutorials (noted in project Readme.md), others original.
